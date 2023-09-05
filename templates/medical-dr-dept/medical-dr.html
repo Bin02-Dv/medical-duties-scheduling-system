@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboad - Add Medical Director</title>
+    <link rel="stylesheet" href="../static/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="shortcut icon" href="../static/img/logo.png" type="image/x-icon">
+</head>
+<body>
+    <!-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Enable body scrolling</button> -->
+
+    
+<nav class="navbar navbar-success fixed-top">
+    <div class="container-fluid">
+      <a href="/"><img src="../../static/img/logo.png" alt="" height="100" width="100"></a>
+      <a class="navbar-brand" href="/"><i><b>General Hospital Dutin-ma (Medical Duties Scheduling System)</b></i></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+        <div class="img text-center">
+            <img src="../../static/img/logo.png" alt="" height="100" width="100">
+        </div>
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dashboad</h5>
+          <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+            {% if current_user.is_superuser == True %}
+            <li class="nav-item">
+              <a class="nav-link" href="/medical-dr">Add New medical director</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/hod">Add New HOD</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/add-department">Add New Department</a>
+            </li>
+            {% endif %}
+            {% for user in user_role %}
+            {% if user.role == 'H.O.D' %}
+            <li class="nav-item">
+              <a class="nav-link" href="/staff">Add New Staff</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% if current_user.is_superuser == True %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Departments
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/lab">Lab Department</a></li>
+                <li><a class="dropdown-item" href="/nurse">Nursing Department</a></li>
+                <li><a class="dropdown-item" href="/record">Record Department</a></li>
+                <li><a class="dropdown-item" href="/maintenance">Maintenance Department</a></li>
+                <li><a class="dropdown-item" href="/phamacy">Pharmacy Department</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#"><i>Departments</i></a></li>
+              </ul>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="body-content">
+    <div class="form">
+        <img src="../static/img/logo.png" alt="" height="200" width="200"><br><br>
+        {% if update == True %}
+        <h2><i>Update Medical Director</i></h2><br>
+        {% else %}
+        <h2><i>Add New Medical Director</i></h2><br>
+        {% endif %}
+        <form action="" method="post">
+          {% csrf_token %}
+          {% if messages %}
+          <div class="alert alert-danger">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+          </div>
+          {% endif %}
+          
+          {% if update != True %}
+          <div class="row">
+            <input type="text" name="f_name" id="" class="form-control" placeholder="First Name" required>
+          </div>
+            <div class="row">
+                <input type="text" name="l_name" id="" class="form-control" placeholder="Last Name" required>
+            </div>
+            <div class="row">
+                <input type="text" name="username" id="" class="form-control" placeholder="Username" required>
+            </div>
+            <div class="row">
+                <input type="email" name="email" id="" class="form-control" placeholder="example@gmail.com" required>
+            </div>
+            <div class="row">
+                <input type="password" name="password" id="" class="form-control" placeholder="Password" required>
+            </div>
+            <div class="row">
+              <input type="password" name="cpassword" id="" class="form-control" placeholder="Confirm Password" required>
+            </div>
+            <div class="row">
+              <button class="btn">Save</button>
+            </div>
+          </form>
+            {% else %}
+          <form action="/try-update-dr/{{directors.id}}" method="post">
+              {% csrf_token %}
+            <div class="row">
+              <input type="text" name="f_name" id="" class="form-control" placeholder="First Name" value="{{directors.first_name}}">
+            </div>
+            <div class="row">
+                <input type="text" name="l_name" id="" class="form-control" placeholder="Last Name" value="{{directors.last_name}}">
+            </div>
+            <div class="row">
+                <input type="text" name="username" id="" class="form-control" placeholder="Username" value="{{directors.username}}">
+            </div>
+            <div class="row">
+                <input type="email" name="email" id="" class="form-control" placeholder="example@gmail.com" value="{{directors.email}}">
+            </div>
+            {% endif %}
+            <div class="row">
+                <button class="btn">Save</button>
+            </div>
+          </form>
+    </div>
+  </div>
+
+    <script src="../static/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

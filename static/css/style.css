@@ -1,0 +1,67 @@
+.container-fluid, .offcanvas, body{
+    background-color: rgb(226, 214, 198);
+}
+
+.body-content{
+    margin: 200px;
+}
+
+.carts{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+.navbar {
+    background-color: rgb(43, 147, 144);
+}
+.carts .cart{
+    padding: 80px 100px 80px 100px;
+    border-radius: 20px;
+    background-color: rgb(43, 147, 144);
+}
+
+.carts a{
+    text-decoration: none;
+    color: #000;
+    font-size: 30px;
+    width: 30%;
+    text-align: center;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form form{
+    width: 50%;
+}
+
+.form form .row{
+    margin-bottom: 20px;
+}
+
+.form form button, .form-container button{
+    background-color: rgb(43, 147, 144);
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.form form button:hover, .form-container button:hover{
+    background-color: rgb(113, 211, 207);
+}
+
+.tables{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.table thead{
+    background-color: rgb(43, 147, 144);
+}
